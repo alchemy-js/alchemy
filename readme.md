@@ -45,7 +45,7 @@ Alchemy's chainable API executes sychronously.
 ```javascript
 const Alchemy = require('@alchemy-js/alchemy');
 
-// optional tramsuter example
+// optional transmuter example
 const markdownTransmuter = () => (context, file, done) => {
   const { src, dest, layouts } = context;
   const { content, data, ext } = file;
