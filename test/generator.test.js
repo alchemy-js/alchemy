@@ -1,7 +1,14 @@
 const fs = require('fs');
 const path = require('path');
 
+const testData = require('./testData');
+const testSetup = require('./testSetup');
+const testTeardown = require('./testTeardown');
+
 const Generator = require('../lib/generator');
+
+beforeAll(() => testSetup(testData));
+afterAll(() => testTeardown(testData));
 
 describe('Generator', () => {
   let generator;
