@@ -1,89 +1,79 @@
-module.exports = [{ 
+module.exports = [{
   type: 'dir',
   path: './test/fixture/',
-  content: null,
-}, { 
+}, {
   type: 'dir',
   path: './test/fixture/layouts',
-  content: null
-},  { 
+}, {
   type: 'dir',
   path: './test/fixture/public',
-  content: null
-}, , { 
+}, {
   type: 'file',
   path: './test/fixture/public/index.md',
   content: Buffer.from('---\ntitle: Hello World\n---\n\n# Hello World!'),
-}, { 
+}, {
   type: 'dir',
   path: './test/fixture/public/images',
-  content: null
-}, { 
+}, {
   type: 'file',
   path: './test/fixture/public/images/header.png',
-  content: null
-}, { 
+  content: Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]),
+}, {
+  type: 'file',
+  path: './test/fixture/public/images/background.jpg',
+  content: Buffer.from([255, 216, 255]),
+}, {
   type: 'dir',
   path: './test/fixture/public/images/icons',
-  content: null
-}, { 
+}, {
   type: 'file',
   path: './test/fixture/public/images/icons/icon.svg',
-  content: null
-}, { 
+}, {
   type: 'dir',
   path: './test/fixture/public/scripts',
-  content: null
-}, { 
+}, {
   type: 'file',
   path: './test/fixture/public/scripts/main.js',
-  content: null
-}, { 
+}, {
   type: 'dir',
   path: './test/fixture/public/styles',
-  content: null
-}, { 
+}, {
   type: 'file',
   path: './test/fixture/public/styles/main.scss',
-  content: null
-}, { 
+}, {
   type: 'dir',
   path: './test/fixture/data',
-  content: null
-}, { 
+}, {
   type: 'file',
   path: './test/fixture/data/index.md',
   content: Buffer.from('---\ntitle: Hello World\n---\n\n# Hello World!'),
-}, { 
+}, {
   type: 'dir',
   path: './test/fixture/data/images',
-  content: null
-}, { 
+}, {
   type: 'file',
   path: './test/fixture/data/images/header.png',
-  content: null
-}, { 
+  content: Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]),
+}, {
+  type: 'file',
+  path: './test/fixture/data/images/background.jpg',
+  content: Buffer.from([255, 216, 255]),
+}, {
   type: 'dir',
   path: './test/fixture/data/images/icons',
-  content: null
-}, { 
+}, {
   type: 'file',
   path: './test/fixture/data/images/icons/icon.svg',
-  content: null
-}, { 
+}, {
   type: 'dir',
   path: './test/fixture/data/scripts',
-  content: null
-}, { 
+}, {
   type: 'file',
   path: './test/fixture/data/scripts/main.js',
-  content: null
-}, { 
+}, {
   type: 'dir',
   path: './test/fixture/data/styles',
-  content: null
-}, { 
+}, {
   type: 'file',
   path: './test/fixture/data/styles/main.scss',
-  content: null
 }];
