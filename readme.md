@@ -31,9 +31,10 @@ Alchemy's chainable API executes sychronously.
 - Transmute the contents of a file
 - Accepts a function that returns a function with `context`, `file`, and `done` parameters
   - `contenxt` provides an object with a reference to the instance's `this.src`, `this.dest`, and `this.layouts` paths
-  - `file` is an object containing `content` and `data` key/values from `gray-matter` and the `ext` file extension
+  - `file` is an object containing `content` and `data` key/values from `gray-matter` and the file `name` and `ext`
   - `done` is a callback function that is called once transmutations are completed
-    - this callback also accepts the transmuted `content` value and this value must be passed for any transmuted files to be generated
+    - this accepts an object that can contain whatever transmuted data that should be passed along
+    - it must contain the same keys found in `file`: content, data, name, and ext., along with corresponding updated data
 
 ##### Alchemy.build()
 - Builds the site in the `this.dest` directory
@@ -56,11 +57,14 @@ const exampleTransmuter = (options) => (context, file, done) => {
     // operate on the incoming data from the above objects!
     const transmutedContent = 'return the eventual transmuted data';
     const transmutedData = 'can even transmute front-matter, if you choose';
+    const transmutedName = 'new file name? sure';
     const transmutedExt = '.some-new-extension';
     // pass an object to done with updated values for whatever has changed
     return done({
       content: transmutedContent,
       data: transmutedData,
+      name: transmutedName,
+      ext: transmutedExt,
     });
   }
   // otherwise, we're done
@@ -74,10 +78,6 @@ Alchemy({
     layouts: './layouts',
   })
   .clean()
-  // optional extensionMapper method accepts an object to help with transmuted file extensions
-  .extensionMapper({
-    '.md': '.html',
-  })
   // optional transmute method accepts a function to operate upon file data
   .transmute(exampleTransmuter())
   .build()
