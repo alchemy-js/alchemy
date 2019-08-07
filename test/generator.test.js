@@ -71,13 +71,13 @@ describe('Generator', () => {
 
   describe('Generator.processFile', () => {
     it('should run a file through the transumter queue', () => {
-      const transmuter = jest.fn((c, f, done) => done(''));
+      const transmuter = jest.fn((file, done) => done(''));
       generator.transmute(transmuter);
       generator.processFile(path.resolve('./test/fixture/data/index.md'));
       expect(transmuter).toHaveBeenCalledTimes(1);
     });
     it('should ignore writing any transmuted files with { ignore: true } returned', () => {
-      const transmuter = jest.fn((c, f, done) => done({ ignore: true }));
+      const transmuter = jest.fn((file, done) => done({ ignore: true }));
       generator.transmute(transmuter);
       generator.processFile(path.resolve('./test/fixture/data/about.md'));
       expect(transmuter).toHaveBeenCalledTimes(1);

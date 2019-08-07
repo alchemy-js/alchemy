@@ -18,7 +18,7 @@ Alchemy's chainable API executes sychronously.
 
 ##### Alchemy([object])
 - Returns a new instance of Alchemy static site generator
-- Accepts an option object with values for `src`, `dest`, and `layouts`.
+- Requires an object with values that represent `src` and `dest` paths
 
 ##### Alchemy.clean()
 - Cleans the destination directory
@@ -26,8 +26,7 @@ Alchemy's chainable API executes sychronously.
 
 ##### Alchemy.transmute([function]) (optional)
 - Transmute the contents of a file
-- Accepts a function that returns a function with `context`, `file`, and `done` parameters
-  - `contenxt` provides an object with a reference to the instance's `this.src`, `this.dest`, and `this.layouts` paths
+- Accepts a function that returns a function with `file`, and `done` parameters
   - `file` is an object containing `content` and `data` key/values from `gray-matter` and the file `name` and `ext`
   - `done` is a callback function that is called once transmutations are completed
     - this accepts an object that can contain whatever data that was transmuted from the `file` object
@@ -47,9 +46,7 @@ Alchemy's chainable API executes sychronously.
 const Alchemy = require('@alchemy-js/alchemy');
 
 // optional transmuter example
-const exampleTransmuter = (options) => (context, file, done) => {
-  // available read-only properties from the context object
-  const { src, dest, layouts } = context;
+const exampleTransmuter = (options) => (file, done) => {
   // available transmutable properties from file object
   const { content, data, ext, name } = file;
   // an example of a conditionally transmuted file
