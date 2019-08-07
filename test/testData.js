@@ -12,6 +12,10 @@ module.exports = [{
   path: './test/fixture/public/index.md',
   content: Buffer.from('---\ntitle: Hello World\n---\n\n# Hello World!'),
 }, {
+  type: 'file',
+  path: './test/fixture/public/about.md',
+  content: Buffer.from('---\ntitle: About World\n---\n\n# About World!'),
+}, {
   type: 'dir',
   path: './test/fixture/public/images',
 }, {
@@ -47,6 +51,10 @@ module.exports = [{
   type: 'file',
   path: './test/fixture/data/index.md',
   content: Buffer.from('---\ntitle: Hello World\n---\n\n# Hello World!'),
+}, {
+  type: 'file',
+  path: './test/fixture/data/about.md',
+  content: Buffer.from('---\ntitle: About World\n---\n\n# About World!'),
 }, {
   type: 'dir',
   path: './test/fixture/data/images',

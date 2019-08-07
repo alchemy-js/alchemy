@@ -24,17 +24,17 @@ Alchemy's chainable API executes sychronously.
 - Cleans the destination directory
 - Useful when a file or directory has been removed in between builds
 
-##### Alchemy.extensionMap([object]) (optional)
-- Provides a map for when file extensions need to change due to transmutations
-
 ##### Alchemy.transmute([function]) (optional)
 - Transmute the contents of a file
 - Accepts a function that returns a function with `context`, `file`, and `done` parameters
   - `contenxt` provides an object with a reference to the instance's `this.src`, `this.dest`, and `this.layouts` paths
   - `file` is an object containing `content` and `data` key/values from `gray-matter` and the file `name` and `ext`
   - `done` is a callback function that is called once transmutations are completed
-    - this accepts an object that can contain whatever transmuted data that should be passed along
-    - it must contain the same keys found in `file`: content, data, name, and ext., along with corresponding updated data
+    - this accepts an object that can contain whatever data that was transmuted from the `file` object
+      - e.g., `{ content: 'new content here, ext: '.html' }`
+    - additionally, there is a property that can be passed to ignore a file entirely from generation
+      - e.g., `{ ignore: true }`
+    - if a file is not transmuted, call `done()` with no arguments to continue the process
 
 ##### Alchemy.build()
 - Builds the site in the `this.dest` directory
@@ -66,6 +66,9 @@ const exampleTransmuter = (options) => (context, file, done) => {
       name: transmutedName,
       ext: transmutedExt,
     });
+    /* optional "ignore" boolean can conditionally exclude files
+     * return done({ ignore: true });
+    */
   }
   // otherwise, we're done
   return done();
