@@ -35,12 +35,13 @@ describe('Logger', () => {
 
   describe('Logger.message', () => {
     it('should format a message without an elapse time', () => {
+      const error = new Error();
       logger.message('test', { status: 'success' });
       logger.message('test', { status: 'warning' });
-      logger.message('test', { status: 'danger' });
+      logger.message(error, { status: 'danger' });
       expect(console.log).toHaveBeenNthCalledWith(1, successColor, `${now}: test`);
       expect(console.warn).toHaveBeenNthCalledWith(1, warningColor, `${now}: test`);
-      expect(console.error).toHaveBeenNthCalledWith(1, dangerColor, `${now}: test`);
+      expect(console.error).toHaveBeenNthCalledWith(1, dangerColor, `${now}: ${error}\n\n${error.stack}\n`);
     });
 
     it('should format a message with an elapse time in miliseconds', () => {

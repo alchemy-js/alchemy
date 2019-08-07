@@ -46,12 +46,27 @@ Alchemy's chainable API executes sychronously.
 const Alchemy = require('@alchemy-js/alchemy');
 
 // optional transmuter example
-const markdownTransmuter = () => (context, file, done) => {
+const exampleTransmuter = (options) => (context, file, done) => {
+  // available read-only properties from the context object
   const { src, dest, layouts } = context;
-  const { content, data, ext } = file;
-  // transmute incoming file data here!
-  done();
+  // available transmutable properties from file object
+  const { content, data, ext, name } = file;
+  // an example of a conditionally transmuted file
+  if (ext === '.some-ext-we-want-to-work-with') {
+    // operate on the incoming data from the above objects!
+    const transmutedContent = 'return the eventual transmuted data';
+    const transmutedData = 'can even transmute front-matter, if you choose';
+    const transmutedExt = '.some-new-extension';
+    // pass an object to done with updated values for whatever has changed
+    return done({
+      content: transmutedContent,
+      data: transmutedData,
+    });
+  }
+  // otherwise, we're done
+  return done();
 };
+
 	
 Alchemy({
     src: './data',
@@ -64,7 +79,7 @@ Alchemy({
     '.md': '.html',
   })
   // optional transmute method accepts a function to operate upon file data
-  .transmute(markdownTransmuter())
+  .transmute(exampleTransmuter())
   .build()
   // optional watch method accepts an array of directories to listen to
   .watch([
