@@ -115,14 +115,6 @@ describe('Generator', () => {
     });
   });
 
-  describe('Generator.extensionMapper', () => {
-    it('should add a map to the instance to assist in mapping extensions of transmuted files', () => {
-      const expectedMap = { '.md': '.html' };
-      generator.extensionMapper(expectedMap);
-      expect(generator.extensionMap).toBe(expectedMap);
-    });
-  });
-
   describe('Generator.createDestPath', () => {
     it('should remove this.src from the path when outputting directories/files', () => {
       const srcPath = path.resolve('./test/fixture/data/index.md');
