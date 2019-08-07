@@ -65,7 +65,27 @@ describe('Generator', () => {
       // NOTE only "traverses" one level; we pass a mock directoryHandler that doesn't enqueue
       generator.traverse(directoryHandler, fileHandler, path.resolve('./test/fixture/data/'));
       expect(directoryHandler).toBeCalledTimes(3);
-      expect(fileHandler).toBeCalledTimes(1);
+      expect(fileHandler).toBeCalledTimes(2);
+    });
+  });
+
+  describe('Generator.processFile', () => {
+    it('should run a file through the transumter queue', () => {
+      const transmuter = jest.fn((c, f, done) => done(''));
+      generator.transmute(transmuter);
+      generator.processFile(path.resolve('./test/fixture/data/index.md'));
+      expect(transmuter).toHaveBeenCalledTimes(1);
+    });
+    it('should ignore writing any transmuted files with { ignore: true } returned', () => {
+      const transmuter = jest.fn((c, f, done) => done({ ignore: true }));
+      generator.transmute(transmuter);
+      generator.processFile(path.resolve('./test/fixture/data/about.md'));
+      expect(transmuter).toHaveBeenCalledTimes(1);
+      try {
+        fs.readFileSync('./test/fixture/public/about.md');
+      } catch (e) {
+        expect(e.code).toEqual('ENOENT');
+      }
     });
   });
 
@@ -85,7 +105,7 @@ describe('Generator', () => {
   describe('Generator.build', () => {
     it('builds the site', () => {
       generator.build();
-      const expectedContents = ['images', 'index.md', 'scripts', 'styles'];
+      const expectedContents = ['about.md', 'images', 'index.md', 'scripts', 'styles'];
       const expectedBuffer = Buffer.from('---\ntitle: Hello World\n---\n\n# Hello World!');
       expect(fs.readdirSync(path.resolve('./test/fixture/public'))).toEqual(expectedContents);
       expect(fs.readFileSync(path.resolve('./test/fixture/public/index.md'))).toEqual(expectedBuffer);
@@ -103,15 +123,6 @@ describe('Generator', () => {
       const transmuter = jest.fn();
       generator.transmute(transmuter);
       expect(generator.transmuters).toEqual([transmuter]);
-    });
-  });
-
-  describe('Generator.processFile', () => {
-    it('should run a file through the transumter queue', () => {
-      const transmuter = jest.fn((c, f, done) => done(''));
-      generator.transmute(transmuter);
-      generator.processFile(path.resolve('./test/fixture/data/index.md'));
-      expect(transmuter).toHaveBeenCalledTimes(1);
     });
   });
 
