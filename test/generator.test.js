@@ -92,10 +92,16 @@ describe('Generator', () => {
   describe('Generator.clean', () => {
     it('empties the public directory', () => {
       generator.clean();
-      expect([]).toEqual([]);
+      const contents = fs.readdirSync('./test/fixture/public');
+      expect(contents).toEqual([]);
+    });
+    it('creates a destination directory if it does not exist', () => {
+      fs.rmdirSync('./test/fixture/public');
+      generator.dest = './test/fixture/public';
+      generator.clean();
     });
     it('catches clean errors', () => {
-      generator.dest = './test/fixture/someOtherDest';
+      generator.traverse = jest.fn(() => { throw new Error(); });
       generator.clean();
       expect(generator.logger.stopTimer).toBeCalledTimes(1);
       expect(generator.logger.message).toBeCalledTimes(1);
