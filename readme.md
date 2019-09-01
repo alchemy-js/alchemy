@@ -27,10 +27,10 @@ Alchemy's chainable API executes sychronously. It's also important to note that 
 ##### Alchemy.transmute([function]) (optional)
 - Transmutes file data for site generation
 - Accepts a function that returns a function containing `file`, and `done` parameters
-  - `file` is an object containing `content` and `data` key/values from the `gray-matter` package, as well as file `name` and `ext`
+  - `file` is an object containing `content` and `data` key/values from the `gray-matter` package, as well as file `dir`, `name`, and `ext`
   - `done` is a callback function that is called once transmutations are completed
     - this accepts an object that can contain whatever data that was transmuted from the `file` object. This transmuted data is then passed along to the next method in the chain
-      - e.g., `{ content: [string], name: [string], data: [object], ext: [string] }`
+      - e.g., `{ content: [string], data: [object], dir: [string], name: [string], ext: [string] }`
     - additionally, there is a property that can be passed to ignore a file entirely from generation, having it not appear in the `dest` directory once the entire chain executes
       - e.g., `{ ignore: [boolean] }`
     - if a file is not transmuted or ignored, call `done()` with no arguments to continue the process
