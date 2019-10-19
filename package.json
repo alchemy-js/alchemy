@@ -1,6 +1,6 @@
 {
   "name": "@alchemy-js/alchemy",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "A dependency-light static site generator",
   "main": "index.js",
   "scripts": {
